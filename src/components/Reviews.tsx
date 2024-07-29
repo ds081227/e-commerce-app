@@ -43,13 +43,12 @@ function ReviewColumn({
 
   useEffect(() => {
     if (!columnRef.current) return;
+
     const resizeObserver = new window.ResizeObserver(() => {
       // Set column height to 0 if columnRef.current does not exist
       setColumnHeight(columnRef.current?.offsetHeight ?? 0);
     });
-    if (columnRef.current) {
-      setColumnHeight(columnRef.current.offsetHeight);
-    }
+
     resizeObserver.observe(columnRef.current);
     return () => {
       resizeObserver.disconnect();

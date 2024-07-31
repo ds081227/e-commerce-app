@@ -21,7 +21,7 @@ export default function Page() {
     queryKey: ["auth-callback"],
     queryFn: async () => await getAuthStatus(),
     retry: true,
-    retryDelay: 5000,
+    retryDelay: 1000,
   });
   if (data?.success) {
     if (configId) {

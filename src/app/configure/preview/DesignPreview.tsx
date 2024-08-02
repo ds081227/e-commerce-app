@@ -13,24 +13,25 @@ import Confetti from "react-dom-confetti";
 import { createCheckoutSession } from "./actions";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
-import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import LoginModal from "@/components/LoginModal";
+import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/types";
 
 export default function DesignPreview({
   configuration,
+  user,
 }: {
   configuration: Configuration;
+  user: KindeUser | null;
 }) {
   const router = useRouter();
   const { toast } = useToast();
   const { id } = configuration;
-  const { user } = useKindeBrowserClient();
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
   const [showConfetti, setShowConfetti] = useState(false);
   useEffect(() => {
     setShowConfetti(true);
-  });
+  }, []);
   const { color, model, finish, material } = configuration;
   const tw = COLORS.find((c) => c.value === color)?.tw;
   const { label: modelLabel } = MODELS.options.find((m) => m.value === model)!;
@@ -40,7 +41,7 @@ export default function DesignPreview({
     PRODUCT_PRICES.material[material!] +
     PRODUCT_PRICES.finish[finish!];
 
-  const { mutate: createPaymentSession } = useMutation({
+  const { mutate: createPaymentSession, isPending } = useMutation({
     mutationKey: ["get-checkout-session"],
     mutationFn: createCheckoutSession,
     onSuccess: ({ url }) => {
@@ -62,7 +63,7 @@ export default function DesignPreview({
   const handleCheckout = () => {
     if (user) {
       // create payment session
-      createPaymentSession({ configId: id });
+      createPaymentSession({ configId: id, user });
     } else {
       // need to log in
       localStorage.setItem("configurationId", id);
@@ -157,6 +158,9 @@ export default function DesignPreview({
 
             <div className="mt-8 flex justify-end pb-12">
               <Button
+                isLoading={isPending}
+                disabled={isPending}
+                loadingText="Processing"
                 onClick={() => handleCheckout()}
                 className="px-4 sm:px-6 lg:px-8">
                 Check out

@@ -32,11 +32,7 @@ export function constructMetadata({
     openGraph: {
       title,
       description,
-      images: [
-        {
-          url: image,
-        },
-      ],
+      url: "https://e-commerce-app-ivory-theta.vercel.app/",
     },
     icons,
     metadataBase: new URL("https://e-commerce-app-ivory-theta.vercel.app/"),

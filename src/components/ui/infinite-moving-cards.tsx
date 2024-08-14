@@ -83,7 +83,7 @@ export const InfiniteMovingCards = ({
           pauseOnHover && "hover:[animation-play-state:paused]"
         )}>
         {items.map((item, idx) => (
-          <li className="">
+          <li key={item.url}>
             <div className="w-60 rounded-[2.25rem] bg-white p-6 shadow-xl shadow-slate-900/5">
               <Phone imgSrc={item.url} />
             </div>

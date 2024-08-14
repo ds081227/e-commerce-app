@@ -46,7 +46,9 @@ export default async function Page() {
           </TableHeader>
           <TableBody>
             {orders.map((order) => (
-              <TableRow className=" bg-accent hover:bg-gray-900/5">
+              <TableRow
+                key={order.id}
+                className=" bg-accent hover:bg-gray-900/5">
                 <TableCell>{order.createdAt.toLocaleDateString()}</TableCell>
                 <TableCell>{order.id}</TableCell>
                 <TableCell>{order.status}</TableCell>

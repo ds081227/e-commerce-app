@@ -15,6 +15,7 @@ export default function MovingReview() {
   return (
     <MaxWidthWrapper className="relative max-w-5xl">
       <img
+        alt="arrow"
         aria-hidden="true"
         className="absolute select-none hidden xl:block -left-52 top-10"
         src="/what-people-are-buying.png"

@@ -59,6 +59,11 @@ const config = {
         sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
+        scroll: {
+          to: {
+            transform: "translate(calc(-50% - 0.5rem))",
+          },
+        },
         "fade-in": {
           from: {
             opacity: "0",
@@ -76,6 +81,8 @@ const config = {
         },
       },
       animation: {
+        scroll:
+          "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
         marquee: "marquee var(--marquee-duration) linear infinite",
         "fade-in": "fade-in 0.5s linear forwards",
         flashing: "flashing 1.4s linear infinite",

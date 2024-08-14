@@ -17,7 +17,7 @@ import {
   MATERIALS,
   MODELS,
 } from "@/validators/option-validator";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -87,12 +87,20 @@ export default function DesignConfigurator({
   });
 
   const [renderedPosition, setRenderedPosition] = useState({
-    x: 150,
-    y: 205,
+    x: 0,
+    y: 0,
   });
+
+  useEffect(() => {
+    if (containerRef.current) {
+      const { width, height } = containerRef.current!.getBoundingClientRect();
+      setRenderedPosition({ x: width / 2.2, y: height / 2.2 });
+    }
+  }, []);
 
   const phoneCaseRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const rndRef = useRef<Rnd>(null);
 
   const { startUpload } = useUploadThing("imageUploader");
 
@@ -157,6 +165,15 @@ export default function DesignConfigurator({
     return new Blob([byteArray], { type: mimeType });
   }
 
+  const handleReset = () => {
+    const { width, height } = containerRef.current!.getBoundingClientRect();
+    rndRef.current?.updatePosition({ x: width / 2.2, y: height / 2.2 });
+    rndRef.current?.updateSize({
+      width: imageDimensions.width / 4,
+      height: imageDimensions.height / 4,
+    });
+  };
+
   return (
     <div className="relative mt-20 grid grid-cols-1 lg:grid-cols-3 mb-20 pb-20">
       <div
@@ -183,43 +200,54 @@ export default function DesignConfigurator({
             )}
           />
         </div>
-        <Rnd
-          default={{
-            x: 280,
-            y: 250,
-            height: imageDimensions.height / 4,
-            width: imageDimensions.width / 4,
-          }}
-          onResizeStop={(_, __, ref, ___, { x, y }) => {
-            setRenderedDimension({
-              // return value is ??px(string) for ref.style.width/height
-              width: parseInt(ref.style.width.slice(0, -2)),
-              height: parseInt(ref.style.height.slice(0, -2)),
-            });
-            setRenderedPosition({ x, y });
-          }}
-          // rendered position need to be updated on both resize and drag event
-          onDragStop={(_, data) => {
-            const { x, y } = data;
-            setRenderedPosition({ x, y });
-          }}
-          className="absolute z-20 border-[3px] border-primary"
-          lockAspectRatio
-          resizeHandleComponent={{
-            bottomRight: <HandleComponent />,
-            bottomLeft: <HandleComponent />,
-            topRight: <HandleComponent />,
-            topLeft: <HandleComponent />,
-          }}>
-          <div className="relative w-full h-full">
-            <NextImage
-              src={imageUrl}
-              alt="your image"
-              fill
-              className="pointer-events-none"
-            />
-          </div>
-        </Rnd>
+        {renderedPosition.x !== 0 && renderedPosition.y !== 0 && (
+          <Rnd
+            ref={rndRef}
+            default={{
+              x: renderedPosition.x,
+              y: renderedPosition.y,
+              height: imageDimensions.height / 4,
+              width: imageDimensions.width / 4,
+            }}
+            onResizeStop={(_, __, ref, ___, { x, y }) => {
+              setRenderedDimension({
+                // return value is ??px(string) for ref.style.width/height
+                width: parseInt(ref.style.width.slice(0, -2)),
+                height: parseInt(ref.style.height.slice(0, -2)),
+              });
+              setRenderedPosition({ x, y });
+            }}
+            // rendered position need to be updated on both resize and drag event
+            onDragStop={(_, data) => {
+              const { x, y } = data;
+              setRenderedPosition({ x, y });
+            }}
+            className="absolute z-20 border-[3px] border-primary"
+            lockAspectRatio
+            bounds={"parent"}
+            resizeHandleComponent={{
+              bottomRight: <HandleComponent />,
+              bottomLeft: <HandleComponent />,
+              topRight: <HandleComponent />,
+              topLeft: <HandleComponent />,
+            }}>
+            <div className="relative w-full h-full">
+              <NextImage
+                src={imageUrl}
+                alt="your image"
+                fill
+                className="pointer-events-none"
+              />
+            </div>
+          </Rnd>
+        )}
+
+        <Button
+          onClick={handleReset}
+          variant="outline"
+          className="absolute z-50 bottom-4 right-4">
+          Reset
+        </Button>
       </div>
       <div className="h-[37.5rem] w-full col-span-full lg:col-span-1 flex flex-col bg-white">
         <ScrollArea className="relative flex-1 overflow-auto">

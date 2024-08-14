@@ -2,22 +2,29 @@
 
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
+import { RiImageAddFill } from "react-icons/ri";
+import { MdDesignServices } from "react-icons/md";
+import { VscOpenPreview } from "react-icons/vsc";
+import React from "react";
 
 const STEPS = [
   {
     name: "Step 1: Add image",
     description: "Choose an image for your case",
     url: "/upload",
+    logo: RiImageAddFill,
   },
   {
     name: "Step 2: Customize design",
     description: "Make the case yours",
     url: "/design",
+    logo: MdDesignServices,
   },
   {
     name: "Step 3: Summary",
     description: "Review your final design",
     url: "/preview",
+    logo: VscOpenPreview,
   },
 ];
 
@@ -38,8 +45,8 @@ export default function Steps() {
               {/* The indicator bar */}
               <span
                 className={cn(
-                  "absolute left-0 top-0 h-full w-1 bg-zinc-400 lg:bottom-0 lg:top-auto lg:h-1 lg:w-full",
-                  { "bg-zinc-700": isCurrent, "bg-primary": isCompleted }
+                  "absolute left-0 top-0 h-full w-1 bg-zinc-700 lg:bottom-0 lg:top-auto lg:h-1 lg:w-full",
+                  { "bg-zinc-400": isCompleted, "bg-primary": isCurrent }
                 )}
                 aria-hidden="true"
               />
@@ -49,26 +56,26 @@ export default function Steps() {
                   "flex items-center px-6 py-4 text-sm font-medium"
                 )}>
                 <span className="flex-shrink-0">
-                  <img
-                    src={imgPath}
-                    className={cn(
-                      "flex h-20 w-20 object-contain items-center justify-center",
-                      {
-                        "border-none": isCompleted,
-                        "border-zinc-700": isCurrent,
-                      }
-                    )}
-                  />
+                  {React.createElement(step.logo, {
+                    className: cn("h-14 w-14 text-black", {
+                      "text-primary": isCurrent,
+                      "text-zinc-400": isCompleted,
+                    }),
+                  })}
                 </span>
                 <span className="ml-4 h-full mt-0.5 flex min-w-0 flex-col justify-center">
                   <span
                     className={cn("text-sm font-semibold text-zinc-700", {
-                      "text-primary": isCompleted,
-                      "text-zinc-700": isCurrent,
+                      "text-primary": isCurrent,
+                      "text-zinc-400": isCompleted,
                     })}>
                     {step.name}
                   </span>
-                  <span className="text-sm tex-zinc-500">
+                  <span
+                    className={cn("text-sm text-zinc-700", {
+                      "text-zinc-700": isCurrent,
+                      "text-zinc-400": isCompleted,
+                    })}>
                     {step.description}
                   </span>
                 </span>

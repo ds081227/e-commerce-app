@@ -9,6 +9,7 @@ import {
 import Image from "next/image";
 import { LoginLink, RegisterLink } from "@kinde-oss/kinde-auth-nextjs";
 import { buttonVariants } from "./ui/button";
+import { MdOutlineError, MdOutlineErrorOutline } from "react-icons/md";
 
 export default function LoginModal({
   isOpen,
@@ -21,13 +22,8 @@ export default function LoginModal({
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent className="absolute z-[99999]">
         <DialogHeader>
-          <div className="relative mx-auto w-24 h-24 mb-2">
-            <Image
-              src="/snake-1.png"
-              alt="snake image"
-              className="object-contain"
-              fill
-            />
+          <div className="flex justify-center items-center mx-auto w-24 h-24 mb-2">
+            <MdOutlineErrorOutline className="w-24 h-24" />
           </div>
           <DialogTitle className="text-3xl text-center font-bold tracking-tight text-gray-900">
             Log in to continue

@@ -16,17 +16,13 @@ export default async function Navbar() {
   return (
     <nav className="sticky z-[100] inset-x-0 top-0 w-full border-b border-gray-200 bg-white/75 backdrop-blur-lg transition-all">
       <MaxWidthWrapper>
-        <div className="flex h-14 items-center justify-between border-b border-zinc-200">
+        <div className="flex h-14 items-center justify-between">
           <Link href="/" className="flex z-40 font-semibold">
-            case<span className="text-green-600">cobra</span>
+            <span className="text-green-600">kustom</span>kase
           </Link>
           <div className="h-full flex items-center space-x-4">
             {user ? (
               <>
-                <LogoutLink
-                  className={buttonVariants({ size: "sm", variant: "ghost" })}>
-                  Sign out
-                </LogoutLink>
                 {isAdmin && (
                   <Link
                     href="/dashboard"
@@ -37,6 +33,18 @@ export default async function Navbar() {
                     Dashboard
                   </Link>
                 )}
+                <Link
+                  href="/orders"
+                  className={buttonVariants({
+                    size: "sm",
+                    variant: "ghost",
+                  })}>
+                  My orders
+                </Link>
+                <LogoutLink
+                  className={buttonVariants({ size: "sm", variant: "ghost" })}>
+                  Sign out
+                </LogoutLink>
                 <Link
                   href="/configure/upload"
                   className={buttonVariants({

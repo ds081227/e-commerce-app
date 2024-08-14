@@ -3,7 +3,6 @@
 // bg-rose-950 border-rose-950
 
 import { PRODUCT_PRICES } from "@/config/products";
-import { Label } from "@headlessui/react";
 
 export const COLORS = [
   { Label: "Black", value: "black", tw: "zinc-900" },

@@ -1,9 +1,9 @@
 # E-commerce Demo
 
 This is a sample application that demonstrates an mobile case E-commerce
-website. Users can upload their own photo which will be stored in uploadthing,
-then customize their own phone case. User authentication is handled by Kinde and
-payment by Stripe. After completing the purchase, an thank-you email will be
+website. Users can upload their own photo which will be stored in uploadthing
+and create their own unique phone case. User authentication is handled by Kinde
+and payment by Stripe. After completing the purchase, an thank-you email will be
 sent to your email address.
 
 ## Live Demonstration
@@ -13,36 +13,34 @@ The E-commerce demo can be
 
 Here are screenshots that show the E-commerce demo application in use.
 
-**Upload** ![Home Page](/screenshots/upload.png?raw=true "Optional Title")
+**Upload** ![Home Page](/screenshots/upload.png?raw=true)
 
 ---
 
-**Design** ![Item Detail](/screenshots/design.png?raw=true "Optional Title")
+**Design** ![Design](/screenshots/design.png?raw=true)
 
 ---
 
-**Checkout**
-![Shopping Cart](/screenshots/checkout.png?raw=true "Shopping Cart")
+**Checkout** ![Checkout](/screenshots/checkout.png?raw=true)
 
 ---
 
-**Payment** ![Shopping Cart](/screenshots/payment.png?raw=true "Shopping Cart")
+**Payment** ![Payment](/screenshots/payment.png?raw=true)
 
 ---
 
-**Thank-you Page**
-![Shopping Cart](/screenshots/thankyou.png?raw=true "Shopping Cart")
+**Thank-you Page** ![Thank you](/screenshots/thankyou.png?raw=true)
 
 ---
 
-**Email** ![Shopping Cart](/screenshots/email.png?raw=true "Shopping Cart")
+**Email** ![Email](/screenshots/email.png?raw=true)
 
 ## Getting Started
 
 To get started you can simply clone this repository and install the
 dependencies.
 
-Clone the `ecommerce-demo` repository using git:
+Clone the `e-commerce-app` repository using git:
 
 ```bash
 gh repo clone ds081227/e-commerce-app
